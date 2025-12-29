@@ -1,0 +1,85 @@
+{% load static tailwind_tags %}{% tailwind_css %}
+<title>{% block title %}Login | CodvedaBlog{% endblock %}</title>
+<p>{% block content %}</p>
+<div class="max-w-md mx-auto px-4 py-12">
+  <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-8">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6 text-center">Log In</h1>
+
+    {% if form.non_field_errors %}
+    <div
+      class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded mb-6"
+    >
+      {{ form.non_field_errors }}
+    </div>
+    {% elif form.errors %}
+    <div
+      class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded mb-6"
+    >
+      Username and password do not match. Please try again.
+    </div>
+    {% endif %}
+
+    <form
+      action="{% url 'bloguser:login' %}"
+      method="post"
+      novalidate
+      class="space-y-4"
+    >
+      {% csrf_token %}
+
+      <div>
+        <label
+          for="{{ form.username.id_for_label }}"
+          class="block text-sm font-medium text-gray-700 mb-2"
+        >
+          {{ form.email.label }}
+        </label>
+        {{ form.username }} {% if form.username.errors %}
+        <span class="text-red-500 text-sm">{{ form.username.errors.0 }}</span>
+        {% endif %}
+      </div>
+
+      <div>
+        <label
+          for="{{ form.password.id_for_label }}"
+          class="block text-sm font-medium text-gray-700 mb-2"
+        >
+          {{ form.password.label }}
+        </label>
+        {{ form.password }} {% if form.password.errors %}
+        <span class="text-red-500 text-sm">{{ form.password.errors.0 }}</span>
+        {% endif %}
+      </div>
+
+      <div class="flex items-center justify-between pt-2">
+        <a
+          href="{% url 'bloguser:reset_password' %}"
+          class="text-sm text-blue-600 hover:underline"
+        >
+          Forgot password?
+        </a>
+        <button
+          type="submit"
+          class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-semibold"
+        >
+          Log In
+        </button>
+      </div>
+
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+
+    <div class="mt-6 pt-6 border-t border-gray-200">
+      <p class="text-sm text-gray-600 text-center">
+        Don't have an account?
+        <a
+          href="{% url 'bloguser:register' %}"
+          class="text-blue-600 hover:underline font-medium"
+        >
+          Sign up
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

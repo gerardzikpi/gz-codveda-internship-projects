@@ -1,0 +1,62 @@
+{% extends 'base.html' %} {% block title %}Home{% endblock %}
+
+  {% block content%}
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    
+      <h1 class="text-2xl font-bold text-gray-800 mb-6 active-title" > Blog news</h1>
+      
+    {% if news %}
+    <ul class="space-y-4">
+      {% for post in news %}
+      <li>
+        <article
+          class="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-150 p-5"
+        >
+          <header class="mb-3">
+            <h2 class="text-xl font-semibold text-gray-900">
+              {{ post.title }}
+            </h2>
+            <div class="text-sm text-gray-500 mt-1">
+              <span class="mr-3"
+                >By
+                <strong class="text-gray-700"
+                  >{{ post.written_by }}</strong
+                ></span
+              >
+              <time class="text-gray-400"
+                >{{ post.created_at|date:"M d, Y H:i" }}</time
+              >
+
+            </div>
+          </header>
+
+          <div class="prose max-w-none text-gray-800 mb-4">
+            {{ post.content|linebreaksbr }}
+          </div>
+        </article>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <div
+      class="bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded"
+    >
+      No news available 
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+    </ul>
+    {% else %}
+    <div
+      class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded"
+    >
+      No news available
+    </div>
+    {% endif %}
+  </div>
+
+ 
+</div>
+</div>
+ {% endblock %}

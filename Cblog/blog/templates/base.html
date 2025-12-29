@@ -1,0 +1,76 @@
+{% load static %} {% load static tailwind_tags %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="favicon" href="{% static 'logo.jpg' %}" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>{% block title %}{% endblock %} | CodvedaBlog</title>
+    {% tailwind_css %}
+  </head>
+
+  <body class="min-h-screen flex flex-col bg-gray-50">
+    <header class="bg-purple-600 text-white">
+      <div
+        class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between"
+      >
+        <div class="flex p-4">
+          <img src="{% static 'logo.jpg' %}" class="rounded-lg w-10 h-10" />
+          <a
+            href="{% url 'blog:posts' %}"
+            class="mt-1 text-2xl font-bold leading-none"
+            >CodvedaBlog</a
+          >
+        </div>
+        {% if user.is_authenticated %}
+        <div class="flex items-center gap-4">
+          <a
+            href="{% url 'blog:create' %}"
+            class="bg-white text-blue-600 px-3 py-1 rounded-full text-sm font-medium hover:bg-gray-100"
+            >+ New Post</a
+          >
+          <a href="{% url 'blog:announcements' %}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
+              <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901"/>
+            </svg>
+          </a>
+          <a
+            href="{% url 'bloguser:profile' user.pk %}"
+            class="p-1 rounded-full flex bg-purple-700 "
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle mt-1" viewBox="0 0 16 16">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+              <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+            </svg>
+            <p class="text-white p-1 items-center hover:text-purple-700">{{request.user.username}}</p>
+          </a>
+        </div>
+        {%else%}
+        <a href="{%url 'bloguser:login' %}">
+          <button>
+            Sign in
+          </button>
+        </a>
+        {%endif%}
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <div class="max-w-6xl mx-auto px-4 py-10">
+        {% if user.is_anonymous%} 
+        <div
+          class="bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded"
+        >
+          Please sign in to continue
+        </div>
+        <p>{% else %}</p>
+        {%block content%}{%endblock%}
+        {% endif %}
+      </div>
+    </main>
+
+    {% comment %} Footer is placed after main; body uses flex column so footer
+    sits at bottom when content is short {% endcomment %}
+    <p>{% include 'footer.html' %}</p>
+  </body>
+</html>

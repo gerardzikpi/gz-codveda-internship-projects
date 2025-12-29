@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block title%}Post Detail{%endblock%}
+<p>{%block content%}</p>
+<div class="container items-center justify-center">
+  <h1 class="text-bold text-xl fs-4">{{posts.title}}</h1>
+  <div class="container rounded rounded-xl shadow-xl">
+    <div class="flex">
+      <p class="text-bold">By:</p>
+      {{posts.written_by}}
+    </div>
+    <legend>{{ posts.content }}</legend>
+    <div>
+      <button class="rounded-xl bg-green-600 text-white w-20 h-10 p-1">
+        <a href="{%url 'blog:update' posts.pk %}" class="text-decoration-none"
+          >Edit</a
+        >
+      </button>
+      <button
+        type="button"
+        class="rounded-xl bg-red-600 text-white w-20 h-10 p-1"
+      >
+        <a href="{% url 'blog:delete' posts.pk %}" class="text-decoration-none"
+          >Delete</a
+        >
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %}

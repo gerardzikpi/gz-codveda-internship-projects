@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %} {% block title %}User Profile | {% endblock title %}
+<p></p>
+{% block content %}
+<body class="bg-gray-100 py-8 px-4">
+  <div class="max-w-xl mx-auto bg-white rounded-lg shadow-md p-8">
+    <!-- Profile Header -->
+    <div class="text-center mb-8">
+      <img
+        src="{%static 'dummy-photo.png' %}"
+        alt="Profile Avatar"
+        class="w-32 h-32 rounded-full bg-gray-300 mx-auto mb-4 object-cover"
+      />
+      <h1 class="text-2xl font-bold text-gray-900">
+        {{ user.first_name }} {{ user.last_name }}
+      </h1>
+    </div>
+
+    <!-- Profile Info -->
+    <div class="space-y-4 mb-8">
+      <div class="flex justify-between py-3 border-b border-gray-200">
+        <span class="font-semibold text-gray-800">Email:</span>
+        <span class="text-gray-600">{{ user.email }}</span>
+      </div>
+      <div class="flex justify-between py-3 border-b border-gray-200">
+        <span class="font-semibold text-gray-800">Username:</span>
+        <span class="text-gray-600">{{ user.username }}</span>
+      </div>
+      <div class="flex justify-between py-3 border-b border-gray-200">
+        <span class="font-semibold text-gray-800">Joined:</span>
+        <span class="text-gray-600">{{ user.date_joined|date:"F Y" }}</span>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex gap-3 justify-center">
+      <button
+        class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+      >
+        Edit Profile
+      </button>
+      <button
+        class="px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition"
+        value="{%url 'bloguser:logout' %}"
+      >
+        <a href="{%url 'bloguser:logout'%}">Logout</a>
+      </button>
+    </div>
+  </div>
+</body>
+{% endblock content %}

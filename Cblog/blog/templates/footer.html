@@ -1,0 +1,35 @@
+{% load static tailwind_tags %}
+<footer class="bg-gray-900 text-white border-t border-gray-800">
+  <div
+    class="max-w-6xl mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-4"
+  >
+    <div class="text-sm text-gray-300">
+      &copy; 2025 CodvedaBlog — A GerardZikpi Project
+    </div>
+
+    <form action="#" method="post" class="flex items-center gap-2" novalidate>
+      <label for="footer-email" class="sr-only">Email address</label>
+      <input
+        id="footer-email"
+        name="email"
+        type="email"
+        placeholder="you@example.com"
+        class="w-64 max-w-full px-3 py-2 rounded-md bg-gray-800 border border-gray-700 text-sm text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600"
+      />
+      <button
+        type="submit"
+        class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md text-sm font-medium"
+      >
+        Subscribe
+      </button>
+    </form>
+  </div>
+
+  <a href="{% url 'bloguser:logout' %}"
+    ><button
+      class="p-1  text-white border border-2 border-white rounded-md mb-2 items-end justify-end hover:bg-purple-600 text-white p-1"
+    >
+      Logout
+    </button></a
+  >
+</footer>
